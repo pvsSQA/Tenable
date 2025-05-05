@@ -11,25 +11,25 @@
         "WorkspaceID": {
             "type": "string",
             "metadata": {
-                "description": "Enter Workspace ID of log analytics Workspace"
+                "description": "Enter Workspace ID of log analytics Workspace."
             }
         },
         "WorkspaceKey": {
             "type": "securestring",
             "metadata": {
-                "description": "Enter Primary Key of log analytics Workspace"
+                "description": "Enter Primary Key of log analytics Workspace."
             }
         },
         "TenableAccessKey": {
             "type": "securestring",
             "metadata": {
-                "description": "Enter Access key for using the Tenable API"
+                "description": "Enter Access key for using the Tenable API."
             }
         },
         "TenableSecretKey": {
             "type": "securestring",
             "metadata": {
-                "description": "Enter Tenable Secret Key for Authentication"
+                "description": "Enter Tenable Secret Key for Authentication."
             }
         },
         "Lowest Severity to Store": {
@@ -50,16 +50,95 @@
             "type": "bool",
             "defaultValue": false,
             "metadata": {
-                "description": "Select true if you want to enable compliance data ingestion from Tenable VM. Default is false."
+                "description": "Select true if you want to enable Compliance data ingestion from Tenable VM. Default is false."
             },
             "allowedValues": [
                 true,
                 false
             ]
         },
+        "WASAssetDataIngestion": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Select true if you want to enable WAS Asset data ingestion from Tenable VM. Default is false."
+            },
+            "allowedValues": [
+                true,
+                false
+            ]
+        },
+        "WASVulnerabilityDataIngestion": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Select true if you want to enable WAS Vulnerability data ingestion from Tenable VM. Default is false."
+            },
+            "allowedValues": [
+                true,
+                false
+            ]
+        },
+        "Lowest Severity to Store for WAS": {
+            "defaultValue": "Info",
+            "allowedValues": [
+                "Critical",
+                "High",
+                "Medium",
+                "Low",
+                "Info"
+            ],
+			"metadata": {
+                "description": "The Lowest Vulnerability severity to store for WAS."
+            },
+            "type": "string"
+        },
         "TenableExportScheduleInMinutes": {
             "type": "int",
-            "defaultValue": 1440
+            "defaultValue": 1440,
+            "metadata": {
+                "description": "Schedule in minutes to create new export job from Tenable VM."
+            }
+        },
+        "AssetTableName": {
+            "type": "string",
+            "defaultValue": "Tenable_VM_Asset",
+            "minLength": 1,
+            "metadata": {
+                "description": "Enter name of the table used to store Asset Data logs. Please do not keep this field as empty else you will get validation error."
+            }
+        },
+        "VulnTableName": {
+            "type": "string",
+            "defaultValue": "Tenable_VM_Vuln",
+            "minLength": 1,
+            "metadata": {
+                "description": "Enter name of the table used to store Vulnerability Data logs. Please do not keep this field as empty else you will get validation error."
+            }
+        },
+        "ComplianceTableName": {
+            "type": "string",
+            "defaultValue": "Tenable_VM_Compliance",
+            "minLength": 1,
+            "metadata": {
+                "description": "Enter name of the table used to store Compliance Data logs. Please do not keep this field as empty else you will get validation error."
+            }
+        },
+        "WASAssetTableName": {
+            "type": "string",
+            "defaultValue": "Tenable_WAS_Asset",
+            "minLength": 1,
+            "metadata": {
+                "description": "Enter name of the table used to store WAS Asset Data logs. Please do not keep this field as empty else you will get validation error."
+            }
+        },
+        "WASVulnTableName": {
+            "type": "string",
+            "defaultValue": "Tenable_WAS_Vuln",
+            "minLength": 1,
+            "metadata": {
+                "description": "Enter name of the table used to store WAS Vulnerability Data logs. Please do not keep this field as empty else you will get validation error."
+            }
         },
         "AppInsightsWorkspaceResourceID": {
             "type": "string",
@@ -203,7 +282,15 @@
                         "TIO_ACCESS_KEY": "[parameters('TenableAccessKey')]",
                         "LowestSeveritytoStore": "[parameters('Lowest Severity to Store')]",
                         "ComplianceDataIngestion": "[parameters('ComplianceDataIngestion')]",
+                        "WASAssetDataIngestion": "[parameters('WASAssetDataIngestion')]",
+                        "WASVulnerabilityDataIngestion": "[parameters('WASVulnerabilityDataIngestion')]",
                         "TenableExportScheduleInMinutes": "[parameters('TenableExportScheduleInMinutes')]",
+                        "LowestSeveritytoStoreWAS": "[parameters('Lowest Severity to Store for WAS')]",
+                        "AssetTableName": "[parameters('AssetTableName')]",
+                        "VulnTableName": "[parameters('VulnTableName')]",
+                        "ComplianceTableName": "[parameters('ComplianceTableName')]",
+                        "WASAssetTableName": "[parameters('WASAssetTableName')]",
+                        "WASVulnTableName": "[parameters('WASVulnTableName')]",
                         "PyTenableUAVendor": "Microsoft",
                         "PyTenableUAProduct": "Azure Sentinel",
                         "PyTenableUABuild": "0.0.1",
